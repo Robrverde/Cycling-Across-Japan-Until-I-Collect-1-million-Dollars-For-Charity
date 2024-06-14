@@ -12,13 +12,6 @@ offset_right = 682.0
 offset_bottom = 297.0
 text = "PLAY"
 
-[node name="Start2" type="Button" parent="."]
-offset_left = 830.0
-offset_top = 225.0
-offset_right = 1054.0
-offset_bottom = 311.0
-text = "Test"
-
 [node name="Quit" type="Button" parent="."]
 offset_left = 455.0
 offset_top = 392.0
@@ -27,5 +20,4 @@ offset_bottom = 470.0
 text = "QUIT"
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="Start2" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

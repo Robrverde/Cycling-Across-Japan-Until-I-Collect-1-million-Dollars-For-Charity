@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dps4jnvbe7vkp"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_rvnre"]
+[ext_resource type="Texture2D" uid="uid://ch7t7y2pgg2ee" path="res://Sprites/Power Ups/iron_mouse_icon.png" id="2_rstbo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ebrd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sy648"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rstbo")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_rvnre")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(171, 110)
+shape = SubResource("CapsuleShape2D_7ebrd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(171, 110)
+scale = Vector2(0.045166, 0.0446777)
+sprite_frames = SubResource("SpriteFrames_sy648")
+animation = &"Idle"
