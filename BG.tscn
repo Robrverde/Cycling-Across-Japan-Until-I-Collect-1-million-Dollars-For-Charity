@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwev667u1cx0y"]
+
+[ext_resource type="Script" path="res://BG.gd" id="1_fj54j"]
+[ext_resource type="Texture2D" uid="uid://b6j01bpjquwhu" path="res://Sprites/Background/bg1m.png" id="2_el18n"]
+
+[node name="BG" type="ParallaxBackground"]
+script = ExtResource("1_fj54j")
+
+[node name="Sky" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Bg1m" type="Sprite2D" parent="Sky"]
+position = Vector2(577, 326)
+scale = Vector2(0.9, 0.898611)
+texture = ExtResource("2_el18n")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1240, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxLayer"]
+offset_top = 378.0
+offset_right = 1247.0
+offset_bottom = 651.0
+color = Color(0.961628, 0.832566, 0.620467, 1)
