@@ -1,60 +1,123 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwfkvtjqkt2ua"]
+[gd_scene load_steps=10 format=3 uid="uid://cwfkvtjqkt2ua"]
 
 [ext_resource type="PackedScene" uid="uid://dps4jnvbe7vkp" path="res://Player/player.tscn" id="1_armfp"]
 [ext_resource type="Texture2D" uid="uid://duxpxqt0n4lw4" path="res://Sprites/Background/FeudalUrbanJapan11.png" id="2_q6h51"]
 [ext_resource type="Texture2D" uid="uid://c5hd1la7fcvtt" path="res://Sprites/Background/FeudalUrbanJapan33.png" id="3_4py86"]
+[ext_resource type="Script" path="res://BG.gd" id="4_478lo"]
+[ext_resource type="Texture2D" uid="uid://b6j01bpjquwhu" path="res://Sprites/Background/bg1m.png" id="5_sj2jj"]
+[ext_resource type="Texture2D" uid="uid://crjjqv7na1vnk" path="res://Sprites/Background/bg2m.png" id="6_odajc"]
+
+[sub_resource type="GDScript" id="GDScript_vemv7"]
+script/source = "extends Node
+
+const monkeyStartPos = Vector2i(800,292)
+const camStartPos = Vector2i(800,200)
+
+var speed : float
+const speedMonkey : float = 2.0
+
+func _ready():
+	new_game()
+
+func new_game():
+	$monkey.position =  monkeyStartPos
+	$monkey.velocity = Vector2i(0,0)
+	$Camera2D.position = camStartPos
+	$StaticBody2D.position =  monkeyStartPos
+	
+	
+	
+func _process(delta):
+	speed = speedMonkey
+	
+	$monkey.position.x += speed
+	$Camera2D.position.x += speed
+	$StaticBody2D.position.x +=speed
+	
+	
+	
+	
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttmfe"]
-size = Vector2(312, 20)
+size = Vector2(578, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1mdgk"]
-size = Vector2(313, 20)
+size = Vector2(570, 20)
 
 [node name="gameScene" type="Node2D"]
+script = SubResource("GDScript_vemv7")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(496, 382)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 z_index = 2
-position = Vector2(-128, -63)
+position = Vector2(3, -63)
 shape = SubResource("RectangleShape2D_ttmfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D"]
-position = Vector2(7.62939e-06, -2.38419e-07)
-scale = Vector2(0.109539, 0.0699301)
+position = Vector2(-5.49998, -2.38419e-07)
+scale = Vector2(0.206499, 0.0699301)
 texture = ExtResource("2_q6h51")
-
-[node name="Floor 1" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(-130.625, -32.8125)
-scale = Vector2(0.0597085, 0.0214866)
-texture = ExtResource("3_4py86")
-
-[node name="Floor 2" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(-130.625, 1.1875)
-rotation = -0.0130174
-scale = Vector2(0.073186, 0.0214866)
-texture = ExtResource("3_4py86")
-flip_h = true
-
-[node name="Floor 3" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(-124.625, 35.1875)
-scale = Vector2(0.0888184, 0.0214866)
-texture = ExtResource("3_4py86")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 z_index = 2
-position = Vector2(-122.5, 60)
+position = Vector2(6, 60)
 shape = SubResource("RectangleShape2D_1mdgk")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D2"]
-position = Vector2(-3.49997, 1)
-scale = Vector2(0.113339, 0.0699301)
+position = Vector2(-11, 1)
+scale = Vector2(0.20615, 0.0699301)
 texture = ExtResource("2_q6h51")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_armfp")]
+[node name="monkey" parent="." instance=ExtResource("1_armfp")]
 position = Vector2(348, 386)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(500, 291)
 zoom = Vector2(2, 2)
+
+[node name="BG" type="ParallaxBackground" parent="."]
+script = ExtResource("4_478lo")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="BG"]
+position = Vector2(-260, 0)
+motion_scale = Vector2(2, 2)
+motion_mirroring = Vector2(727.5, 0)
+
+[node name="Bg1m" type="Sprite2D" parent="BG/ParallaxLayer"]
+position = Vector2(300, 246)
+scale = Vector2(0.56875, 0.572222)
+texture = ExtResource("5_sj2jj")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="BG"]
+position = Vector2(-260, 0)
+motion_scale = Vector2(2.2, 2.2)
+motion_mirroring = Vector2(727.5, 0)
+
+[node name="Bg2m" type="Sprite2D" parent="BG/ParallaxLayer2"]
+position = Vector2(300, 245)
+scale = Vector2(0.571875, 0.572222)
+texture = ExtResource("6_odajc")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="BG"]
+motion_scale = Vector2(2.3, 2.3)
+motion_mirroring = Vector2(580, 0)
+
+[node name="Floor 1" type="Sprite2D" parent="BG/ParallaxLayer3"]
+position = Vector2(148, 341)
+scale = Vector2(0.111268, 0.024846)
+texture = ExtResource("3_4py86")
+
+[node name="Floor 2" type="Sprite2D" parent="BG/ParallaxLayer3"]
+position = Vector2(147, 377)
+rotation = -0.0130174
+scale = Vector2(0.121513, 0.0237286)
+texture = ExtResource("3_4py86")
+flip_h = true
+
+[node name="Floor 3" type="Sprite2D" parent="BG/ParallaxLayer3"]
+position = Vector2(105, 409)
+scale = Vector2(0.131014, 0.0242862)
+texture = ExtResource("3_4py86")
