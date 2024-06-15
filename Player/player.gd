@@ -38,3 +38,8 @@ func _physics_process(delta):
 	#print(position.y)
 
 	move_and_slide()
+
+
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("petePower"):
+		print("power bootsss")
