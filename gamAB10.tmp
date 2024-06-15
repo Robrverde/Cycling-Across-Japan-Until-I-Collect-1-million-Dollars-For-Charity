@@ -11,6 +11,7 @@ script/source = "extends Node
 const monkeyStartPos = Vector2i(800,292)
 const camStartPos = Vector2i(800,200)
 
+var speed : float
 var speedMonkey : float
 
 func _ready():
@@ -32,20 +33,14 @@ func _process(delta):
 	#Player is constantly slowing down.
 	speedMonkey -= 10
 	
-	print(\"Speed\")
-	print(speedMonkey)
+	speed = speedMonkey * delta
 	
-	#if speedMonkey <= 0:
-		#speedMonkey = 0
-		#$BG.scroll_base_offset = Vector2(0,0)
+	
 	if speedMonkey <= 0:
-		$monkey.position.x += 0
+		speedMonkey = 0
 		$BG.scroll_base_offset = Vector2(0,0)
-	else:
-		$monkey.position.x += speedMonkey * delta
-		
-	print(\"pos X\")
-	print($monkey.position.x)
+	
+	$monkey.position.x += speed
 	#$Camera2D.position.x += speed
 	#$Walls.position.x +=speed
 "
