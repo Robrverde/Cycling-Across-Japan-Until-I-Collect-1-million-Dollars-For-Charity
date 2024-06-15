@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dps4jnvbe7vkp"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_rvnre"]
-[ext_resource type="Texture2D" uid="uid://dvb14sj5qpy02" path="res://Sprites/Player/player_body.png" id="2_pvjwm"]
+[ext_resource type="Texture2D" uid="uid://b31rpvvn70573" path="res://Sprites/Player/monkey_sprite_idle/monkey_sprite_frame_DOS.png" id="2_pv0o8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ebrd"]
 radius = 5.4
@@ -11,7 +11,7 @@ height = 13.2
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_pvjwm")
+"texture": ExtResource("2_pv0o8")
 }],
 "loop": true,
 "name": &"Idle",
@@ -27,7 +27,7 @@ scale = Vector2(5, 5)
 shape = SubResource("CapsuleShape2D_7ebrd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.25, 0.143)
+scale = Vector2(0.2, 0.115)
 sprite_frames = SubResource("SpriteFrames_sy648")
 animation = &"Idle"
 
