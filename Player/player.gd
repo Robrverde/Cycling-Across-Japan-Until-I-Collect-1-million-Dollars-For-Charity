@@ -24,6 +24,17 @@ func _physics_process(delta):
 		velocity.y = direction * SPEED
 	else:
 		velocity.y = move_toward(velocity.x, 0, SPEED)
-	print(position.y)
+		
+	
+	#Prevent player to go above the limit
+	if position.y <= 363:
+		position.y = 363
+	
+	#Prevent player to go below the limit
+	if position.y > 594:
+		position.y = 594
+	
+	#Check the current position of the player in the scene		
+	#print(position.y)
 
 	move_and_slide()

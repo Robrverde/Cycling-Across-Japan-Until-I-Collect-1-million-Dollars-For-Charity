@@ -27,7 +27,8 @@ scale = Vector2(5, 5)
 shape = SubResource("CapsuleShape2D_7ebrd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.2, 0.115)
+position = Vector2(11, 4)
+scale = Vector2(0.14, 0.08)
 sprite_frames = SubResource("SpriteFrames_sy648")
 animation = &"Idle"
 

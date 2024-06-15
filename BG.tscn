@@ -13,3 +13,12 @@ motion_mirroring = Vector2(1150, 0)
 position = Vector2(577, 326)
 scale = Vector2(0.9, 0.898611)
 texture = ExtResource("2_el18n")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1240, 0)
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxLayer"]
+offset_top = 378.0
+offset_right = 1247.0
+offset_bottom = 651.0
+color = Color(0.961628, 0.832566, 0.620467, 1)
