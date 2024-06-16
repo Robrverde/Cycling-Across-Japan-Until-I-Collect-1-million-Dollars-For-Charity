@@ -36,5 +36,34 @@ func _physics_process(delta):
 	
 	#Check the current position of the player in the scene		
 	#print(position.y)
+	
+	#Player is constantly slowing down.
+	velocity.x -= 0.2
+	
+	print("Speed")
+	print(velocity.x)
+	
+	if velocity.x > 0:
+		position.x += velocity.x * delta
+	else:
+		position.x += 0
+		velocity.x = 0
+		
+	print("pos X")
+	print(position.x)
 
 	move_and_slide()
+
+func _on_area_2d_area_entered(area):
+	if area.is_in_group("petePower"):
+		print("pete powaaahhh")
+		velocity.x+=100
+	if area.is_in_group("debuffOrange"):
+		print("orange mid")
+		velocity.x -=50
+	if area.is_in_group("stopSign"):
+		print("you dea")
+		velocity.x = 0
+	
+	
+		
