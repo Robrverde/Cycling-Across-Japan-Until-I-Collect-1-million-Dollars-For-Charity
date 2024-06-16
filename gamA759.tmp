@@ -9,13 +9,13 @@
 [sub_resource type="GDScript" id="GDScript_vemv7"]
 script/source = "extends Node
 
+
+
 var pete = preload(\"res://pete_power.tscn\")
 var stopSign = preload(\"res://stop_sign.tscn\")
 var orange = preload(\"res://debuff_orange.tscn\")
-var mousy = preload(\"res://mousy_power.tscn\")
-var obstacle_type :=[pete,stopSign,orange,mousy]
+var obstacle_type :=[pete,stopSign,orange]
 var obstacles : Array
-#@onready
 
 #last location 
 var last_obs
@@ -25,47 +25,23 @@ func _ready():
 	new_game()
 	generate_obs()
 	
-func _process(delta):
-	generate_obs()
-	
-	#for obs in obstacles:
-	#if obs.is_present == false
-	#remove from obstacles array
-	#queue_free()
-		
-	
+
 func generate_obs():
-	
-	if obstacles.is_empty() or $monkey.position.x - last_obs.position.x >= 600:
-		
+	if obstacles.is_empty() or last_obs.position.x < randi_range(400,400):
+		var obs_type = obstacle_type[randi() % obstacle_type.size()]
 		var obs 
+		obs = obs_type.instantiate()
+		add_child(obs)
+		obstacles.append(obs)
+		var obs_x: int = randi()%500 + 150
+		#randi()%500 + 150
+		var obs_y: int = randi()%500 + 150
+		#randi()%500 + 150
+		last_obs = obs
+		add_obs(obs,obs_x,obs_y)
 		
-		
-		var max_obs = 5
-		print(obs)
-		
-		for i in range(randi()% max_obs +1):
-			var obs_type = obstacle_type[randi() % obstacle_type.size()]
-			obs = obs_type.instantiate()
-			#var obs_x: int = randi_range(400,600)
-			var obs_x: int = $monkey.position.x + randi_range(900,1000) + (i*150)
-			#print(obs_x)
-			#randi()%500 + 150
-			var obs_y: int = randi_range(370,580)
-			#print(obs_y)
-			#randi()%500 + 150
-			last_obs = obs
-			
-			add_obs(obs,obs_x,obs_y)
-		
-	#print(\"Last X pos\")
-	#print(last_obs.position.x)
-	
-	#print(\"monkey X\")
-	#print($monkey.position.x)
 		
 func add_obs(obs,x,y):
-	print(\"created\")
 	obs.position = Vector2i(x,y)
 	add_child(obs)
 	obstacles.append(obs)
@@ -75,9 +51,6 @@ func add_obs(obs,x,y):
 func new_game():
 	#$monkey.position =  monkeyStartPos
 	$monkey.velocity.x = 200
-	
-		
-		 
 	#$Camera2D.position = camStartPos
 	#$Walls.position =  monkeyStartPos
 	
@@ -123,12 +96,10 @@ sprite_frames = SubResource("SpriteFrames_sy648")
 animation = &"Idle"
 
 [node name="Camera2D" type="Camera2D" parent="monkey"]
-position = Vector2(377, 0)
 limit_top = 0
 limit_bottom = 0
 
 [node name="BG" type="ParallaxBackground" parent="."]
-scroll_offset = Vector2(115.554, 0)
 script = ExtResource("4_478lo")
 
 [node name="Sky" type="ParallaxLayer" parent="BG"]
@@ -141,6 +112,5 @@ scale = Vector2(0.9, 0.898611)
 texture = ExtResource("5_sj2jj")
 
 [node name="BG2" parent="." instance=ExtResource("4_qlun8")]
-scroll_offset = Vector2(115.554, 0)
 
 [connection signal="area_entered" from="monkey/Area2D" to="monkey" method="_on_area_2d_area_entered"]
