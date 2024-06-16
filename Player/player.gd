@@ -23,7 +23,7 @@ func _physics_process(delta):
 	if direction:
 		velocity.y = direction * SPEED
 	else:
-		velocity.y = move_toward(velocity.x, 0, SPEED)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 		
 	
 	#Prevent player to go above the limit
@@ -43,7 +43,9 @@ func _physics_process(delta):
 	#print("Speed")
 	#print(velocity.x)
 	
-	if velocity.x > 0:
+	if velocity.x > 600:
+		velocity.x = 600
+	elif velocity.x > 0:
 		position.x += velocity.x * delta
 	else:
 		position.x += 0

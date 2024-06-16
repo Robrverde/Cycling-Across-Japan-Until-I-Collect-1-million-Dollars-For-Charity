@@ -36,18 +36,19 @@ func _process(delta):
 	
 func generate_obs():
 	
-	if obstacles.is_empty() or abs($monkey.position.x - last_obs.position.x) >= 600:
-		var obs_type = obstacle_type[randi() % obstacle_type.size()]
+	if obstacles.is_empty() or $monkey.position.x - last_obs.position.x >= 600:
+		
 		var obs 
 		
 		
-		var max_obs = 2
+		var max_obs = 5
 		print(obs)
 		
 		for i in range(randi()% max_obs +1):
+			var obs_type = obstacle_type[randi() % obstacle_type.size()]
 			obs = obs_type.instantiate()
 			#var obs_x: int = randi_range(400,600)
-			var obs_x: int = $monkey.position.x + randi_range(400,500) + (i*100)
+			var obs_x: int = $monkey.position.x + randi_range(900,1000) + (i*150)
 			#print(obs_x)
 			#randi()%500 + 150
 			var obs_y: int = randi_range(370,580)
@@ -122,10 +123,12 @@ sprite_frames = SubResource("SpriteFrames_sy648")
 animation = &"Idle"
 
 [node name="Camera2D" type="Camera2D" parent="monkey"]
+position = Vector2(377, 0)
 limit_top = 0
 limit_bottom = 0
 
 [node name="BG" type="ParallaxBackground" parent="."]
+scroll_offset = Vector2(115.554, 0)
 script = ExtResource("4_478lo")
 
 [node name="Sky" type="ParallaxLayer" parent="BG"]
@@ -138,5 +141,6 @@ scale = Vector2(0.9, 0.898611)
 texture = ExtResource("5_sj2jj")
 
 [node name="BG2" parent="." instance=ExtResource("4_qlun8")]
+scroll_offset = Vector2(115.554, 0)
 
 [connection signal="area_entered" from="monkey/Area2D" to="monkey" method="_on_area_2d_area_entered"]
