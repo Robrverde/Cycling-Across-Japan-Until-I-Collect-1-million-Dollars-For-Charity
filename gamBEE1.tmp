@@ -16,7 +16,6 @@ var stopSign = preload(\"res://stop_sign.tscn\")
 var orange = preload(\"res://debuff_orange.tscn\")
 var obstacle_type :=[pete,stopSign,orange]
 var obstacles : Array
-#@onready
 
 #last location 
 var last_obs
@@ -28,17 +27,15 @@ func _ready():
 	
 
 func generate_obs():
-	if obstacles.is_empty() or last_obs.position.x < 1:
+	if obstacles.is_empty() or last_obs.position.x < randi_range(400,400):
 		var obs_type = obstacle_type[randi() % obstacle_type.size()]
 		var obs 
 		obs = obs_type.instantiate()
 		add_child(obs)
 		obstacles.append(obs)
-		var obs_x: int = randi_range(400,600)
-		print(obs_x)
+		var obs_x: int = randi()%500 + 150
 		#randi()%500 + 150
-		var obs_y: int = randi_range(400,600)
-		print(obs_y)
+		var obs_y: int = randi()%500 + 150
 		#randi()%500 + 150
 		last_obs = obs
 		add_obs(obs,obs_x,obs_y)
