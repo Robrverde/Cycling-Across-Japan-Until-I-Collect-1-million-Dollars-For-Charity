@@ -42,4 +42,14 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("petePower"):
-		print("power bootsss")
+		print("pete powaaahhh")
+		velocity.x+=100
+	if area.is_in_group("debuffOrange"):
+		print("orange mid")
+		velocity.x -=50
+	if area.is_in_group("stopSign"):
+		print("you dea")
+		velocity.x = 0
+	
+	
+		
