@@ -12,7 +12,8 @@ script/source = "extends Node
 var pete = preload(\"res://pete_power.tscn\")
 var stopSign = preload(\"res://stop_sign.tscn\")
 var orange = preload(\"res://debuff_orange.tscn\")
-var obstacle_type :=[pete,stopSign,orange]
+var mousy = preload(\"res://mousy_power.tscn\")
+var obstacle_type :=[pete,stopSign,orange,mousy]
 var obstacles : Array
 #@onready
 
@@ -38,19 +39,24 @@ func generate_obs():
 	if obstacles.is_empty() or abs($monkey.position.x - last_obs.position.x) >= 600:
 		var obs_type = obstacle_type[randi() % obstacle_type.size()]
 		var obs 
-		obs = obs_type.instantiate()
+		
+		
+		var max_obs = 2
 		print(obs)
 		
-		#var obs_x: int = randi_range(400,600)
-		var obs_x: int = $monkey.position.x + randi_range(400,500)
-		#print(obs_x)
-		#randi()%500 + 150
-		var obs_y: int = randi_range(370,580)
-		#print(obs_y)
-		#randi()%500 + 150
-		last_obs = obs
-		add_obs(obs,obs_x,obs_y)
-	
+		for i in range(randi()% max_obs +1):
+			obs = obs_type.instantiate()
+			#var obs_x: int = randi_range(400,600)
+			var obs_x: int = $monkey.position.x + randi_range(400,500) + (i*100)
+			#print(obs_x)
+			#randi()%500 + 150
+			var obs_y: int = randi_range(370,580)
+			#print(obs_y)
+			#randi()%500 + 150
+			last_obs = obs
+			
+			add_obs(obs,obs_x,obs_y)
+		
 	#print(\"Last X pos\")
 	#print(last_obs.position.x)
 	
@@ -68,6 +74,9 @@ func add_obs(obs,x,y):
 func new_game():
 	#$monkey.position =  monkeyStartPos
 	$monkey.velocity.x = 200
+	
+		
+		 
 	#$Camera2D.position = camStartPos
 	#$Walls.position =  monkeyStartPos
 	

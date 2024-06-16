@@ -38,7 +38,7 @@ func _physics_process(delta):
 	#print(position.y)
 	
 	#Player is constantly slowing down.
-	velocity.x -= 0.2
+	velocity.x -= 0.05
 	
 	#print("Speed")
 	#print(velocity.x)
@@ -58,7 +58,11 @@ func _on_area_2d_area_entered(area):
 	if area.is_in_group("petePower"):
 		print("pete powaaahhh")
 		velocity.x+=100
-		#area.queue_free()
+		
+	if area.is_in_group("mousyPower"):
+		print("mouse powaaahhh")
+		velocity.x+=100
+		
 	if area.is_in_group("debuffOrange"):
 		print("orange mid")
 		velocity.x -=50
