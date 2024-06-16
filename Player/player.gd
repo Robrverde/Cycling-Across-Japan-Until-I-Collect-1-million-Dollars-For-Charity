@@ -58,11 +58,11 @@ func _on_area_2d_area_entered(area):
 	if area.is_in_group("petePower"):
 		print("pete powaaahhh")
 		velocity.x+=100
-		area.queue_free()
+		#area.queue_free()
 	if area.is_in_group("debuffOrange"):
 		print("orange mid")
 		velocity.x -=50
-		area.queue_free()
+		#area.queue_free()
 	if area.is_in_group("stopSign"):
 		print("you dea")
 		velocity.x = 0

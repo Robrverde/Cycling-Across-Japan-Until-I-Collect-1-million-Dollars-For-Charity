@@ -9,8 +9,6 @@
 [sub_resource type="GDScript" id="GDScript_vemv7"]
 script/source = "extends Node
 
-
-
 var pete = preload(\"res://pete_power.tscn\")
 var stopSign = preload(\"res://stop_sign.tscn\")
 var orange = preload(\"res://debuff_orange.tscn\")
@@ -26,25 +24,41 @@ func _ready():
 	new_game()
 	generate_obs()
 	
-
+func _process(delta):
+	generate_obs()
+	
+	#for obs in obstacles:
+	#if obs.is_present == false
+	#remove from obstacles array
+	#queue_free()
+		
+	
 func generate_obs():
-	if obstacles.is_empty() or last_obs.position.x < 1:
+	
+	if obstacles.is_empty() or abs($monkey.position.x - last_obs.position.x) >= 600:
 		var obs_type = obstacle_type[randi() % obstacle_type.size()]
 		var obs 
 		obs = obs_type.instantiate()
-		add_child(obs)
-		obstacles.append(obs)
-		var obs_x: int = randi_range(400,600)
-		print(obs_x)
+		print(obs)
+		
+		#var obs_x: int = randi_range(400,600)
+		var obs_x: int = $monkey.position.x + randi_range(400,500)
+		#print(obs_x)
 		#randi()%500 + 150
-		var obs_y: int = randi_range(400,600)
-		print(obs_y)
+		var obs_y: int = randi_range(370,580)
+		#print(obs_y)
 		#randi()%500 + 150
 		last_obs = obs
 		add_obs(obs,obs_x,obs_y)
-		
+	
+	#print(\"Last X pos\")
+	#print(last_obs.position.x)
+	
+	#print(\"monkey X\")
+	#print($monkey.position.x)
 		
 func add_obs(obs,x,y):
+	print(\"created\")
 	obs.position = Vector2i(x,y)
 	add_child(obs)
 	obstacles.append(obs)
