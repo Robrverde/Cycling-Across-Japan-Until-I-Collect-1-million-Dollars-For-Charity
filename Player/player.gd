@@ -8,6 +8,8 @@ var bonusPoints : int = 0
 
 var is_dead : bool = false
 
+@onready var anim = get_node("AnimatedSprite2D")
+
 func _physics_process(delta):
 	
 
@@ -15,6 +17,9 @@ func _physics_process(delta):
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var direction = Input.get_axis("ui_up", "ui_down")
+		
+		#if get_node("AnimatedSprite2D").animation != "Hurt":
+		anim.play("Idle")
 		if direction:
 			velocity.y = direction * SPEED
 		else:
@@ -55,8 +60,13 @@ func _on_area_2d_area_entered(area):
 		bonusPoints = 15000
 		
 	if area.is_in_group("debuffOrange"):
+		
 		#print("orange mid")
+
 		velocity.x -=50
+		
+		
+		
 		#area.queue_free()
 	if area.is_in_group("stopSign"):
 		#print("you dea")

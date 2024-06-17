@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwev667u1cx0y"]
+[gd_scene load_steps=5 format=3 uid="uid://bwev667u1cx0y"]
 
 [ext_resource type="Script" path="res://BG.gd" id="1_fj54j"]
 [ext_resource type="Texture2D" uid="uid://b6j01bpjquwhu" path="res://Sprites/Background/bg1m.png" id="2_el18n"]
+[ext_resource type="Texture2D" uid="uid://cf1qglsejyh2a" path="res://Sprites/Background/street_.jpg" id="3_q1ewh"]
+[ext_resource type="Texture2D" uid="uid://dvoexroq1y45q" path="res://Sprites/Background/barras.png" id="3_xwwfx"]
 
 [node name="BG" type="ParallaxBackground"]
 script = ExtResource("1_fj54j")
@@ -14,11 +16,25 @@ position = Vector2(577, 326)
 scale = Vector2(0.9, 0.898611)
 texture = ExtResource("2_el18n")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+[node name="bars" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1.1, 1.1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="bars" type="Sprite2D" parent="bars"]
+position = Vector2(588.5, 342.75)
+scale = Vector2(0.611979, 0.103241)
+texture = ExtResource("3_xwwfx")
+
+[node name="Road" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1.1, 1.1)
 motion_mirroring = Vector2(1240, 0)
 
-[node name="ColorRect" type="ColorRect" parent="ParallaxLayer"]
-offset_top = 378.0
-offset_right = 1247.0
-offset_bottom = 651.0
-color = Color(0.961628, 0.832566, 0.620467, 1)
+[node name="road" type="Sprite2D" parent="Road"]
+position = Vector2(618.75, 514.5)
+scale = Vector2(0.646094, 0.252778)
+texture = ExtResource("3_q1ewh")
+
+[node name="bars" type="Sprite2D" parent="Road"]
+position = Vector2(588.5, 342.75)
+scale = Vector2(0.611979, 0.103241)
+texture = ExtResource("3_xwwfx")

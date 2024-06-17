@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bko6b7h10u6md"
+path="res://.godot/imported/500k scream connor.mp3-0f0aa2a7dcfd15b14e34d848d6628e2f.mp3str"
+
+[deps]
+
+source_file="res://audio/500k scream connor.mp3"
+dest_files=["res://.godot/imported/500k scream connor.mp3-0f0aa2a7dcfd15b14e34d848d6628e2f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
