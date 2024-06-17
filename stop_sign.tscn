@@ -1,16 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://hyha36gogy61"]
 
-[ext_resource type="Texture2D" uid="uid://5ambmm87s4uc" path="res://Sprites/Obstacles/poste_def_sprite.png" id="1_lsy56"]
+[ext_resource type="Texture2D" uid="uid://c6qxjfu34ocay" path="res://Sprites/Obstacles/chris_sprite.png" id="1_e7plt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuk8c"]
-size = Vector2(7, 52)
+[sub_resource type="CircleShape2D" id="CircleShape2D_hwycr"]
 
 [node name="stopSign" type="Area2D" groups=["stopSign"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["stopSign"]]
-scale = Vector2(0.046, 0.046)
-texture = ExtResource("1_lsy56")
+rotation = -1.39626
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_e7plt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, -6)
-shape = SubResource("RectangleShape2D_vuk8c")
+position = Vector2(-3, 12)
+scale = Vector2(3, 3)
+shape = SubResource("CircleShape2D_hwycr")

@@ -1,10 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwfkvtjqkt2ua"]
+[gd_scene load_steps=18 format=3 uid="uid://cwfkvtjqkt2ua"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_w17lm"]
 [ext_resource type="Texture2D" uid="uid://b31rpvvn70573" path="res://Sprites/Player/monkey_sprite_idle/monkey_sprite_frame_DOS.png" id="2_70xuk"]
 [ext_resource type="Script" path="res://BG.gd" id="4_478lo"]
+[ext_resource type="Texture2D" uid="uid://2mudnqr1mef2" path="res://Sprites/Player/monkey_sprite_idle/monkey_sprite_frame_UNO.png" id="4_c0mqj"]
 [ext_resource type="PackedScene" uid="uid://bwev667u1cx0y" path="res://BG.tscn" id="4_qlun8"]
+[ext_resource type="Texture2D" uid="uid://dpapmc4e8l8a5" path="res://Sprites/Player/monkey_sprite_idle/monkey_sprite_frame_TRES.png" id="5_diji0"]
 [ext_resource type="Texture2D" uid="uid://b6j01bpjquwhu" path="res://Sprites/Background/bg1m.png" id="5_sj2jj"]
+[ext_resource type="Texture2D" uid="uid://cqslpj23yu23p" path="res://Sprites/Player/monkey_sprite_naranja/monkey_sprite_naranja_frame_UNO.png" id="6_38cie"]
+[ext_resource type="Texture2D" uid="uid://6yledeqgyy4" path="res://Sprites/Player/monkey_sprite_naranja/monkey_sprite_naranja_frame_DOS.png" id="7_elvx1"]
+[ext_resource type="AudioStream" uid="uid://cq11j4ja5f8cr" path="res://audio/gameplay.ogg" id="7_lwhpu"]
+[ext_resource type="Texture2D" uid="uid://doidbqowfal7r" path="res://Sprites/Player/monkey_sprite_naranja/monkey_sprite_naranja_frame_TRES.png" id="8_je85c"]
 [ext_resource type="PackedScene" uid="uid://b4l3a1d5i0s6c" path="res://UI/hud.tscn" id="9_pf20c"]
 
 [sub_resource type="GDScript" id="GDScript_vemv7"]
@@ -23,10 +29,7 @@ var obstacles : Array
 var last_obs #location of last object spawned
 
 # score variables
-var score : int
-var high_score : int 
 const SCORE_MODIFIER : int = 10
-
 
 func _ready():
 	new_game()
@@ -37,19 +40,20 @@ func new_game():
 	game_running = true
 	
 	#reset game and player
-	score = 0
+	GameVariables.score = 0
 	$monkey.velocity.x = 200
 	$monkey.bonusPoints = 0
 	
 func _process(delta):
 	
 	if game_running:
-		score += 10
+		GameVariables.score += 10
 		if $monkey.bonusPoints > 0:
-			score += $monkey.bonusPoints
+			GameVariables.score += $monkey.bonusPoints
 			$monkey.bonusPoints = 0
 				
 		show_score()
+		check_high_score()
 		game_running = not $monkey.is_dead
 		generate_obs()
 	else:
@@ -80,22 +84,24 @@ func generate_obs():
 			add_obs(obs,obs_x,obs_y)
 		
 func add_obs(obs,x,y):
-	print(\"created\")
 	obs.position = Vector2i(x,y)
 	add_child(obs)
 	obstacles.append(obs)
 
 func show_score():
-	$HUD.get_node(\"ScoreLabel\").text = \"FUNDS RAISED $ \" + str(score/SCORE_MODIFIER)
+	
+	$HUD.get_node(\"ScoreLabel\").text = \"FUNDS RAISED $ \" + str(GameVariables.score/SCORE_MODIFIER)
 
 func check_high_score():
 	#$HUD.get_node(\"HighScoreLabel\").show()
-	if score > high_score:
-		high_score = score
-		$HUD.get_node(\"HighScoreLabel\").text = \"HIGHEST FUNDS RAISED $ \" + str(high_score/SCORE_MODIFIER)	
+	if GameVariables.score > GameVariables.high_score:
+		GameVariables.high_score = GameVariables.score
+	$HUD.get_node(\"HighScoreLabel\").text = \"HIGHEST FUNDS RAISED $ \" + str(GameVariables.high_score/SCORE_MODIFIER)	
 
 func game_over():
 	check_high_score()
+	get_tree().change_scene_to_file(\"res://game_over_screen.tscn\")
+	
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7ebrd"]
@@ -106,12 +112,43 @@ height = 13.2
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("6_38cie")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_elvx1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_je85c")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_70xuk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c0mqj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_70xuk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_diji0")
 }],
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
 }]
+
+[sub_resource type="Animation" id="Animation_rltqc"]
+resource_name = "normal"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1d3h2"]
+_data = {
+"normal": SubResource("Animation_rltqc")
+}
 
 [node name="gameScene" type="Node2D"]
 script = SubResource("GDScript_vemv7")
@@ -137,12 +174,17 @@ texture_filter = 2
 position = Vector2(9, 7.00003)
 scale = Vector2(0.118164, 0.101562)
 sprite_frames = SubResource("SpriteFrames_sy648")
-animation = &"Idle"
+animation = &"Hurt"
 
 [node name="Camera2D" type="Camera2D" parent="monkey"]
 position = Vector2(377, 0)
 limit_top = 0
 limit_bottom = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="monkey"]
+libraries = {
+"": SubResource("AnimationLibrary_1d3h2")
+}
 
 [node name="BG" type="ParallaxBackground" parent="."]
 scroll_offset = Vector2(115.554, 0)
@@ -159,5 +201,10 @@ texture = ExtResource("5_sj2jj")
 
 [node name="BG2" parent="." instance=ExtResource("4_qlun8")]
 scroll_offset = Vector2(115.554, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_lwhpu")
+autoplay = true
+max_distance = 8e+13
 
 [connection signal="area_entered" from="monkey/Area2D" to="monkey" method="_on_area_2d_area_entered"]
