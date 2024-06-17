@@ -37,6 +37,9 @@ func _ready():
 	
 func new_game():
 	
+	$HUD.get_node(\"ScoreLabel\").show()
+	$HUD.get_node(\"HighScoreLabel\").show()
+	
 	game_running = true
 	
 	#reset game and player
@@ -47,7 +50,7 @@ func new_game():
 func _process(delta):
 	
 	if game_running:
-		GameVariables.score += 10
+		GameVariables.score += 125
 		if $monkey.bonusPoints > 0:
 			GameVariables.score += $monkey.bonusPoints
 			$monkey.bonusPoints = 0
@@ -100,6 +103,8 @@ func check_high_score():
 
 func game_over():
 	check_high_score()
+	$HUD.get_node(\"ScoreLabel\").hide()
+	$HUD.get_node(\"HighScoreLabel\").hide()
 	get_tree().change_scene_to_file(\"res://game_over_screen.tscn\")
 	
 "
