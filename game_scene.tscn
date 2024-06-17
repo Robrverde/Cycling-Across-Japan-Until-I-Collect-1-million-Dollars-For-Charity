@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwfkvtjqkt2ua"]
+[gd_scene load_steps=11 format=3 uid="uid://cwfkvtjqkt2ua"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_w17lm"]
 [ext_resource type="Texture2D" uid="uid://b31rpvvn70573" path="res://Sprites/Player/monkey_sprite_idle/monkey_sprite_frame_DOS.png" id="2_70xuk"]
 [ext_resource type="Script" path="res://BG.gd" id="4_478lo"]
 [ext_resource type="PackedScene" uid="uid://bwev667u1cx0y" path="res://BG.tscn" id="4_qlun8"]
 [ext_resource type="Texture2D" uid="uid://b6j01bpjquwhu" path="res://Sprites/Background/bg1m.png" id="5_sj2jj"]
+[ext_resource type="AudioStream" uid="uid://cq11j4ja5f8cr" path="res://audio/gameplay.ogg" id="7_lwhpu"]
 [ext_resource type="PackedScene" uid="uid://b4l3a1d5i0s6c" path="res://UI/hud.tscn" id="9_pf20c"]
 
 [sub_resource type="GDScript" id="GDScript_vemv7"]
@@ -159,5 +160,10 @@ texture = ExtResource("5_sj2jj")
 
 [node name="BG2" parent="." instance=ExtResource("4_qlun8")]
 scroll_offset = Vector2(115.554, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_lwhpu")
+autoplay = true
+max_distance = 8e+13
 
 [connection signal="area_entered" from="monkey/Area2D" to="monkey" method="_on_area_2d_area_entered"]

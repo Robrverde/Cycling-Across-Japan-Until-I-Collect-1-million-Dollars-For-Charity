@@ -1,16 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://hyha36gogy61"]
+[gd_scene load_steps=2 format=3 uid="uid://hyha36gogy61"]
 
 [ext_resource type="Texture2D" uid="uid://5ambmm87s4uc" path="res://Sprites/Obstacles/poste_def_sprite.png" id="1_lsy56"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vuk8c"]
-size = Vector2(7, 52)
 
 [node name="stopSign" type="Area2D" groups=["stopSign"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["stopSign"]]
-scale = Vector2(0.046, 0.046)
+scale = Vector2(0.03, 0.03)
 texture = ExtResource("1_lsy56")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, -6)
-shape = SubResource("RectangleShape2D_vuk8c")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.03, 0.03)
+polygon = PackedVector2Array(231, -1438, 231, -1436.3, 250, -1427.3, 250, -1425.8, 263, -1412.8, 263, -1410.5, 271, -1394.5, 271, -1389, 272.2, -1376, 270.1, -1376, -75, -837.4, -75, -806, -57, 172, -57, 242, -45, 1211, -44, 1211, -44, 1225.2, -39.8, 1221, -36.8, 1221, -32.8, 1229, -36.2, 1229, -56.1, 1250, -58.5, 1250, -72.5, 1257, -77.9, 1257, -94, 1258.1, -94, 1256.8, -105, 1255.8, -105, 1254.4, -120, 1248.4, -120, 1247, -144, 1229.5, -146.9, 1235.3, -150, 1234.6, -150, 1232.4, -151.7, 1224, -161, 1214.8, -161, 1211.8, -153.1, 1207.9, -180, -318, -180, -383, -185, -811, -186, -811, -186, -817, -191.2, -827, -192.1, -827, -369, -1102.4, -369, -1104.5, -389.1, -1138, -390.1, -1138, -545, -1377.4, -545, -1389.3, -537.4, -1411, -535.9, -1411, -521.9, -1428, -519.5, -1428, -502.5, -1438, -486, -1438, -486, -1439)
